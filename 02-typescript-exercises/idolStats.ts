@@ -37,20 +37,7 @@ const jennie: Idol = {
   ],
 }
 
-const lisa: Idol = {
-  name: "LISA",
-  group: "BLACKPINK",
-  debutYear: 2016,
-  isActive: true,
-  achievements: [
-    "First Thai artist to debut in a major K-pop group",
-    "Over 1 billion followers across social media",
-    "Successful solo career with hit single 'LALISA'",
-  ],
-}
-
 console.log("--- Idol Object (Complex Types) ---")
 console.log(jennie)
-console.log(lisa)
 
-export { type Idol, jennie, lisa }
+export { type Idol, jennie }
