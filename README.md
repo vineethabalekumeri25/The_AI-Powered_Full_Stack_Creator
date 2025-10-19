@@ -22,7 +22,7 @@ Contents:
 
 index.html: The main HTML file containing the structure of the profile cards.
 
-jennie-kim.jpg, lisa-manobal.jpg: Image assets used in the HTML.
+jennie-kim.jpg: Image assets used in the HTML.
 
 How to View: Simply open the index.html file directly in any web browser.
 
