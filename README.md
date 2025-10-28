@@ -1,3 +1,5 @@
+Phase 1: Frontend Fundamentals - Designing the Boutique
+
 The AI-Powered Full-Stack Creator Project
 
 This repository contains a series of exercises that build upon each other, starting from fundamental web technologies and culminating in a functional e-commerce storefront built with React and TypeScript.
