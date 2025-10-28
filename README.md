@@ -47,8 +47,6 @@ How to Run This Project
 Navigate to the project directory:
 
 cd 04-nextjs-app 
-# Or your specific Next.js project folder name
-
 
 Install dependencies:
 
