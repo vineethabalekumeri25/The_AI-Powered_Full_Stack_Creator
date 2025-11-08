@@ -1,0 +1,22 @@
+# Python dependencies for web scraping scripts
+# Install with: pip install -r requirements.txt
+
+# For static web scraping (Task 1)
+requests==2.31.0
+beautifulsoup4==4.12.3
+lxml==5.1.0
+
+# For dynamic web scraping (Task 2)
+playwright==1.41.0
+
+# For asynchronous background tasks
+celery==5.3.6
+redis==5.0.1
+
+# For building REST API
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic==2.5.3
+
+# Utility libraries
+python-dotenv==1.0.0
