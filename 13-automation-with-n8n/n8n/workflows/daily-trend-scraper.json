@@ -1,0 +1,79 @@
+{
+  "name": "Daily Fashion Trend Scraper",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:8000/api/scrape-trends",
+        "method": "POST",
+        "options": {}
+      },
+      "id": "http-request",
+      "name": "Call Scrape API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "webhookUrl": "YOUR_DISCORD_WEBHOOK_URL_HERE",
+        "text": "=✅ Daily Fashion Trend Scraping Complete!\n\n📊 Trends Found: {{ $json.trends_found }}\n🕐 Timestamp: {{ $json.timestamp }}\n\nThe automated trend engine has successfully scraped the latest fashion trends.",
+        "options": {}
+      },
+      "id": "discord-notification",
+      "name": "Discord Notification",
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [650, 300]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Call Scrape API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Scrape API": {
+      "main": [
+        [
+          {
+            "node": "Discord Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1",
+  "meta": {
+    "instanceId": "style-journal-automation"
+  },
+  "tags": []
+}

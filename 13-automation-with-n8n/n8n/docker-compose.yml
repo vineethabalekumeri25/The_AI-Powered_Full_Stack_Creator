@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n-style-journal
+    environment:
+      # Timezone configuration
+      - GENERIC_TIMEZONE=America/New_York
+      - TZ=America/New_York
+      
+      # Basic authentication for security
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=stylejournal2024
+      
+      # Production settings
+      - NODE_ENV=production
+      - N8N_SECURE_COOKIE=false
+      
+      # Webhook configuration
+      - WEBHOOK_URL=http://localhost:5678/
+      
+      # Database (SQLite by default, stored in volume)
+      - DB_TYPE=sqlite
+      
+    ports:
+      - "5678:5678"
+    
+    volumes:
+      # Persist n8n data (workflows, credentials, settings)
+      - n8n_data:/home/node/.n8n
+      # Share files between n8n and host
+      - ./local-files:/files
+    
+    restart: unless-stopped
+    
+    networks:
+      - n8n-network
+
+volumes:
+  n8n_data:
+    name: n8n_style_journal_data
+
+networks:
+  n8n-network:
+    name: n8n_style_journal_network
