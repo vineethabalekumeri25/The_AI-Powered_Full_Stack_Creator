@@ -1,0 +1,48 @@
+# Docker Compose for Development
+# Use this for local development with hot reloading
+version: '3.8'
+
+services:
+  # Frontend with volume mounting for hot reload
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+      target: base  # Stop at base stage for development
+    container_name: style-journal-frontend-dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
+  # Backend with volume mounting for hot reload
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      target: base  # Stop at base stage for development
+    container_name: style-journal-backend-dev
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - ENVIRONMENT=development
+    volumes:
+      - ./scripts:/app/scripts
+    command: uvicorn scripts.api:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

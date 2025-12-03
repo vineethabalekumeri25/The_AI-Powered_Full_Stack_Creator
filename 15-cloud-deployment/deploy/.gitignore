@@ -1,0 +1,4 @@
+# Ignore deployment logs and temporary files
+*.log
+.env.production
+deployment-output.txt

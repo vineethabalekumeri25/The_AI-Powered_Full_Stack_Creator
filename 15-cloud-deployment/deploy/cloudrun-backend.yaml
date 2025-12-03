@@ -1,0 +1,28 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: fashion-app-backend
+  labels:
+    app: fashion-app
+    tier: backend
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: '0'
+        autoscaling.knative.dev/maxScale: '10'
+    spec:
+      containerConcurrency: 80
+      timeoutSeconds: 300
+      containers:
+      - image: us-central1-docker.pkg.dev/PROJECT_ID/fashion-app/backend:latest
+        ports:
+        - containerPort: 8000
+          name: http1
+        env:
+        - name: NODE_ENV
+          value: production
+        resources:
+          limits:
+            cpu: '1'
+            memory: 512Mi
